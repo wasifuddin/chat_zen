@@ -2,4 +2,3 @@ Flask
 openai
 qdrant-client
 python-dotenv
-vercel-wsgi
