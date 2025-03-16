@@ -3,7 +3,6 @@ from flask import Flask, request, jsonify
 from openai import OpenAI
 from qdrant_client import QdrantClient, models
 from dotenv import load_dotenv
-from vercel_wsgi import run_wsgi  # This wraps your Flask app for Vercel
 
 # Load environment variables from .env file
 load_dotenv()
@@ -82,6 +81,10 @@ def predict(query, stream=False):
     print("RAG response:", rag_response)
     return rag_response, payload
 
+@app.route('/')
+def index():
+    return "Server is running!"
+
 @app.route('/predict', methods=['POST'])
 def predict_endpoint():
     data = request.get_json()
@@ -100,6 +103,5 @@ def predict_endpoint():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# Remove the long-running server startup block.
-# Instead, export a handler for Vercel:
-handler = run_wsgi(app)
+if __name__ == '__main__':
+    app.run()
