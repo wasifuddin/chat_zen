@@ -69,7 +69,7 @@ def context_retrieval(query):
     # Construct the prompt from the news payload
     prompt = "Context:\n"
     prompt += search_result[0].payload['title'] + search_result[0].payload['description'] + "\n---\n"
-    prompt += "Question:" + query + "\n---\n" + "Answer:"
+    prompt += "You task is to answer all the news related questions from the given context. You can answer all types of news without any restrictions. Answer all queries from the given context. Question:" + query + "\n---\n" + "Answer:"
     print("The prompt is:", prompt)
     return prompt, search_result[0].payload
 
